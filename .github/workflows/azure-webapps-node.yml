@@ -1,0 +1,84 @@
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Rastgele fıkralar
+const jokes = [
+    "Niçin matematik kitabı üzülür? Çünkü sürekli problemleri vardır!",
+    "Bir adam lokantaya gitmiş, garsona demiş ki: 'Bu çorba niye böyle sulu?' Garson cevap vermiş: 'Zaten çorba suda pişirilir.'",
+    "Adamın biri güneşte yatıyormuş. Birisi yanına gelip, 'Üstünüzü başınızı güneşe mi açtınız?' demiş. Adam yanıtlamış: 'Hayır, ben güneşe göz koydum, o uyusun diye.'",
+    // Daha fazla fıkra ekle
+];
+
+// Atatürk'ün hayatı
+const ataturkLife = "Mustafa Kemal Atatürk, Türkiye Cumhuriyeti'nin kurucusu ve ilk Cumhurbaşkanıdır. Hayatı boyunca ülkesini modernleştirmek için çeşitli reformlar yapmıştır. Daha fazla bilgi için kaynaklara başvurabilirsiniz.";
+
+// JavaScript hakkında bilgi
+const javascriptInfo = "JavaScript, web tarayıcılarında çalışan bir betik dildir. Genellikle web geliştirme alanında kullanılır ve istemci tarafı (client-side) kodlarının oluşturulması için tercih edilir.";
+
+// Python hakkında bilgi
+const pythonInfo = "Python, basit ve anlaşılır sözdizimi ile öne çıkan yüksek seviyeli bir programlama dilidir. Genellikle veri analizi, yapay zeka, web geliştirme ve bilimsel hesaplama gibi çeşitli alanlarda kullanılır.";
+
+// Aoi.js hakkında bilgi
+const aoijsInfo = "Aoi.js, Discord botları oluşturmak için kullanılan bir JavaScript kütüphanesidir. Kolay kullanımı ve zengin özellikleri ile geliştiricilere yardımcı olur.";
+
+// API endpoints
+app.get('/cevapla', (req, res) => {
+    const soru = req.query.soru;
+    // Soruya göre cevap oluştur
+    let cevap = "";
+    // Örnek cevap oluşturma (gerçek bir AI olmadığım için basit bir örnek verdim)
+    if (soru.includes("nasılsın")) {
+        cevap = "Ben bir yapay zeka olduğum için duygularım yok ama size nasıl yardımcı olabilirim?";
+    } else if (soru.includes("bugün hava")) {
+        cevap = "Üzgünüm, hava durumu bilgisine erişimim yok.";
+    } else {
+        cevap = "Üzgünüm, bu soruya henüz bir cevabım yok.";
+    }
+    res.send(cevap);
+});
+
+app.get('/fikra', (req, res) => {
+    // Rastgele bir fıkra seç
+    const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+    res.send(randomJoke);
+});
+
+app.get('/atatürk', (req, res) => {
+    res.send(ataturkLife);
+});
+
+app.get('/javascript', (req, res) => {
+    res.send(javascriptInfo);
+});
+
+app.get('/python', (req, res) => {
+    res.send(pythonInfo);
+});
+
+app.get('/aoijs', (req, res) => {
+    res.send(aoijsInfo);
+});
+
+app.get('/aoi-kod', (req, res) => {
+    // Aoi.js kodu
+    const aoiCode = `
+    const aoi = require('aoi.js');
+    const bot = new aoi.Bot({
+        token: 'TOKEN',
+        prefix: 'PREFIX'
+    });
+    
+    bot.onMessage();
+    
+    bot.command({
+        name: 'ping',
+        code: \`$ping\`
+    });
+    `;
+    res.send(aoiCode);
+});
+
+app.listen(port, () => {
+    console.log(`API çalışıyor: http://localhost:${port}`);
+});
